@@ -1,0 +1,51 @@
+[project]
+name = "news-translation-engine"
+version = "0.1.0"
+description = "Cost-efficient multilingual news translation with fine-tuned open-source LLMs"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+dependencies = [
+    "datasets>=3.0",
+    "huggingface-hub>=0.25",
+    "pydantic>=2.9",
+    "python-dotenv>=1.0",
+    "tqdm>=4.66",
+]
+
+[project.optional-dependencies]
+eval = [
+    "sacrebleu>=2.4",
+    "unbabel-comet>=2.2",
+]
+train = [
+    "torch>=2.4",
+    "transformers>=4.45",
+    "accelerate>=1.0",
+    "peft>=0.13",
+    "bitsandbytes>=0.44",
+    "trl>=0.11",
+]
+data = [
+    "feedparser>=6.0",
+    "httpx>=0.27",
+    "trafilatura>=1.12",
+    "kss>=6.0",
+]
+serve = [
+    "vllm>=0.6",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "ruff>=0.7",
+    "pytest>=8.3",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP", "B"]
+ignore = ["E501"]

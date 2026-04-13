@@ -205,3 +205,33 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# ===== Project-specific =====
+
+# Data (copyright / size) — keep scripts, ignore payloads
+data/raw/
+data/processed/
+data/**/*.jsonl
+data/**/*.csv
+data/**/*.parquet
+data/**/*.tmx
+!data/scripts/**
+
+# Model artifacts
+models/
+outputs/
+checkpoints/
+wandb/
+*.bin
+*.safetensors
+*.pt
+*.ckpt
+
+# Evaluation results — keep summary md and JSON, ignore raw predictions
+evaluation/results/*_preds.txt
+evaluation/results/*_preds.jsonl
+
+# Secrets
+.env
+*.key
+*.pem
