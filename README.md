@@ -54,6 +54,21 @@ cp .env.example .env
 # HF_TOKEN 등 값 채우기
 ```
 
+## Running on Runpod
+
+학습·대형 모델 추론·COMET 평가는 Runpod GPU pod에서 실행합니다.
+
+```bash
+# pod에서
+git clone <repo-url> && cd news-translation-engine
+bash scripts/runpod_setup.sh --extra train   # eval|train|data|serve|all
+```
+
+- 템플릿: PyTorch 2.4+ / CUDA 12.1+ 이미지
+- GPU 크기 가이드: 7B QLoRA → 24GB VRAM (RTX 4090/L40), 32B 추론 → 80GB (A100)
+- `/workspace` persistent volume 권장 — HF 모델/FLORES 캐시 재사용
+- `HF_TOKEN`, `WANDB_API_KEY`는 pod 환경변수 또는 `.env`로
+
 ## Datasets
 
 | Stage | Dataset | Size | License | Used for |
@@ -61,7 +76,7 @@ cp .env.example .env
 | Stage 1 | [OPUS News-Commentary ko-en](https://opus.nlpl.eu/News-Commentary.php) | TBD | CC-BY-SA | 베이스라인 SFT |
 | Stage 1 | [OPUS MultiParaCrawl ko-en](https://opus.nlpl.eu/MultiParaCrawl.php) | TBD | CC0 | 확장 SFT |
 | Stage 2 | News silver labels (Qwen2.5-32B 생성) | TBD | 로컬 전용, 배포 불가 | 도메인 특화 SFT |
-| Eval | [FLORES-200](https://huggingface.co/datasets/facebook/flores) | 1012 (devtest) | CC-BY-SA | 범용 번역 평가 |
+| Eval | [FLORES-200](https://github.com/facebookresearch/flores) | 1012 (devtest) | CC-BY-SA | 범용 번역 평가 |
 | Eval | Custom news testset v1 | 100 | 로컬 전용 | 뉴스 도메인 평가 |
 
 > 뉴스 원문 및 silver label은 저작권 이슈로 레포에 커밋하지 않음  
@@ -93,6 +108,7 @@ news-translation-engine/
 │   ├── eval_bleu_comet.py
 │   └── results/          # 결과 JSON + summary md
 ├── serving/              # vLLM 서빙
+├── scripts/              # Runpod 셋업 등 환경 부트스트랩
 ├── docs/                 # 비용 분석, 설계 문서
 ├── plan_by_claude_bootstrap.md  # 구현 계획
 ├── pyproject.toml
