@@ -7,6 +7,7 @@
 | Model | Adapter | Dataset | Direction | BLEU | chrF | COMET | n | Date | Notes |
 |---|---|---|---|---|---|---|---|---|---|
 | Qwen/Qwen2.5-7B-Instruct | — | FLORES devtest | ko→en | TBD | TBD | TBD | 1012 | TBD | baseline, zero-shot |
+| Qwen2.5-7B-Instruct | — | FLORES devtest | ko→en | 23.27 | 52.13 | 0.8329 | 1012 | 0412| zero-shot baseline |
 | Qwen/Qwen2.5-7B-Instruct | stage1_r16 | FLORES devtest | ko→en | TBD | TBD | TBD | 1012 | TBD | OPUS QLoRA |
 | Qwen/Qwen2.5-7B-Instruct | stage2_r16 | FLORES devtest | ko→en | TBD | TBD | TBD | 1012 | TBD | + silver labels |
 | Qwen/Qwen2.5-7B-Instruct | stage2_r16 | News testset v1 | ko→en | TBD | TBD | TBD | 100 | TBD | in-domain |

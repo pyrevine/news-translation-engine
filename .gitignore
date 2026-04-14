@@ -208,9 +208,8 @@ __marimo__/
 
 # ===== Project-specific =====
 
-# Data (copyright / size) — keep scripts, ignore payloads
+# Data (copyright / size) — keep scripts and metadata, ignore payloads
 data/raw/
-data/processed/
 data/**/*.jsonl
 data/**/*.csv
 data/**/*.parquet

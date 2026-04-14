@@ -1,0 +1,235 @@
+{
+  "candidates": [
+    {
+      "name": "opus-news-commentary",
+      "hf_path": "Helsinki-NLP/news_commentary",
+      "hf_config": "en-ko",
+      "license": "CC-BY-NC-SA-4.0 (News Commentary)",
+      "notes": "News domain; stable OPUS source",
+      "num_rows": null,
+      "num_rows_error": "ValueError: BuilderConfig 'en-ko' not found. Available: ['ar-cs', 'ar-de', 'ar-en', 'ar-es', 'ar-fr', 'ar-it', 'ar-ja', 'ar-nl', 'ar-pt', 'ar-ru', 'ar-zh', 'cs-de', 'cs-en', 'cs-es', 'cs-fr', 'cs-it', 'cs-ja', 'cs-nl', 'cs-pt', 'cs-ru', 'cs-zh', 'de-en', 'de-es', 'de-fr', 'de-it', 'de-ja', 'de-nl', 'de-pt', 'de-ru', 'de-zh', 'en-es', 'en-fr', 'en-it', 'en-ja', 'en-nl', 'en-pt', 'en-ru', 'en-zh', 'es-fr', 'es-it', 'es-ja', 'es-nl', 'es-pt', 'es-ru', 'es-zh', 'fr-it', 'fr-ja', 'fr-nl', 'fr-pt', 'fr-ru', 'fr-zh', 'it-nl', 'it-pt', 'it-ru', 'it-zh', 'ja-ru', 'ja-zh', 'nl-pt', 'nl-ru', 'nl-zh', 'pt-ru', 'pt-zh', 'ru-zh']",
+      "status": "load_failed",
+      "error": "ValueError: BuilderConfig 'en-ko' not found. Available: ['ar-cs', 'ar-de', 'ar-en', 'ar-es', 'ar-fr', 'ar-it', 'ar-ja', 'ar-nl', 'ar-pt', 'ar-ru', 'ar-zh', 'cs-de', 'cs-en', 'cs-es', 'cs-fr', 'cs-it', 'cs-ja', 'cs-nl', 'cs-pt', 'cs-ru', 'cs-zh', 'de-en', 'de-es', 'de-fr', 'de-it', 'de-ja', 'de-nl', 'de-pt', 'de-ru', 'de-zh', 'en-es', 'en-fr', 'en-it', 'en-ja', 'en-nl', 'en-pt', 'en-ru', 'en-zh', 'es-fr', 'es-it', 'es-ja', 'es-nl', 'es-pt', 'es-ru', 'es-zh', 'fr-it', 'fr-ja', 'fr-nl', 'fr-pt', 'fr-ru', 'fr-zh', 'it-nl', 'it-pt', 'it-ru', 'it-zh', 'ja-ru', 'ja-zh', 'nl-pt', 'nl-ru', 'nl-zh', 'pt-ru', 'pt-zh', 'ru-zh']"
+    },
+    {
+      "name": "opus-100-en-ko",
+      "hf_path": "Helsinki-NLP/opus-100",
+      "hf_config": "en-ko",
+      "license": "mixed (per OPUS-100)",
+      "notes": "Mixed-domain benchmark corpus",
+      "num_rows": null,
+      "num_rows_error": "ValueError: BuilderConfig ParquetConfig(name='en-ko', version=0.0.0, data_dir=None, data_files={'test': ['en-ko/test-*'], 'train': ['en-ko/train-*'], 'validation': ['en-ko/validation-*']}, description=None, batch_size=None, columns=None, features=None, filters=None, fragment_scan_options=None, on_bad_files='error') doesn't have a 'trust_remote_code' key.",
+      "columns": [
+        "translation"
+      ],
+      "schema": "translation.{ko,en}",
+      "samples": [
+        {
+          "ko": "할머니처럼 만들었지만.. ? 엉망이지만..",
+          "en": "They're shaped like a bus.",
+          "ok": true
+        },
+        {
+          "ko": "그거 꺼내려다가는",
+          "en": "I ain't fishing' 'em out.",
+          "ok": true
+        },
+        {
+          "ko": "선생님은 이 기술력이 있는 시대에 그러지 않아도 되는데도 신의 피조물을 괴롭히고 있다고요",
+          "en": "You are torturing god's creatures in an age where we have the technology that no longer requires us to.",
+          "ok": true
+        },
+        {
+          "ko": "아무도 없음. 알았다 오바.",
+          "en": "Roger that.",
+          "ok": true
+        },
+        {
+          "ko": "어떻게 아빠가 저걸 허락할 수가 있지?",
+          "en": "How could my father let him do this?",
+          "ok": true
+        },
+        {
+          "ko": "그는 어디있나?",
+          "en": "Where is he now?",
+          "ok": true
+        },
+        {
+          "ko": "V",
+          "en": "V.",
+          "ok": false
+        },
+        {
+          "ko": "Stop.",
+          "en": "Stop.",
+          "ok": false
+        },
+        {
+          "ko": "물건들이 부서졌어요",
+          "en": "Things are break.",
+          "ok": true
+        },
+        {
+          "ko": "당신 표현대로 고스트 같거든",
+          "en": "Like you said, he's a ghost story.",
+          "ok": true
+        }
+      ],
+      "sanity_pass_rate": 0.8,
+      "status": "ok"
+    },
+    {
+      "name": "opus-paracrawl-en-ko",
+      "hf_path": "Helsinki-NLP/opus_paracrawl",
+      "hf_config": "en-ko",
+      "license": "CC0 (ParaCrawl)",
+      "notes": "Large, noisier — needs aggressive filtering",
+      "num_rows": null,
+      "num_rows_error": "ValueError: BuilderConfig 'en-ko' not found. Available: ['de-pl', 'el-en', 'en-km', 'en-so', 'en-sw', 'en-tl', 'es-gl', 'fr-nl']",
+      "status": "load_failed",
+      "error": "ValueError: BuilderConfig 'en-ko' not found. Available: ['de-pl', 'el-en', 'en-km', 'en-so', 'en-sw', 'en-tl', 'es-gl', 'fr-nl']"
+    },
+    {
+      "name": "lemon-mint-wiki-augmented-v1",
+      "hf_path": "lemon-mint/korean_english_parallel_wiki_augmented_v1",
+      "hf_config": null,
+      "license": "unknown",
+      "notes": "Personal HF dataset — may be missing or gated",
+      "num_rows": null,
+      "num_rows_error": "ValueError: BuilderConfig ParquetConfig(name='default', version=0.0.0, data_dir=None, data_files={'train': ['data/train-*']}, description=None, batch_size=None, columns=None, features=None, filters=None, fragment_scan_options=None, on_bad_files='error') doesn't have a 'trust_remote_code' key.",
+      "columns": [
+        "english",
+        "korean",
+        "score"
+      ],
+      "schema": "{korean,english}",
+      "samples": [
+        {
+          "ko": "5059 알루미늄 합금은 주로 마그네슘으로 합금된 알루미늄-마그네슘 합금입니다. 열처리로 강화되지 않고, 대신 재료의 변형 경화 또는 냉간 기계 가공으로 강해집니다.\n\n열처리가 강도에 큰 영향을 미치지 않기 때문에 5059는 용접이 용이하고 기계적 강도를 대부분 유지할 수 있습니다.\n\n5059 합금은 1999년 코러스 알루미늄의 연구원들에 의해 밀접하게 관련된 5083 알루미늄 합금에서 유래했습니다.",
+          "en": "5059 aluminum alloy is an aluminum-magnesium alloy, primarily alloyed with magnesium. It is not strengthened by heat treatment, instead becoming stronger due to strain hardening, or cold mechanical working of the material.\n\nSince heat treatment doesn't strongly affect the strength, 5059 can be readily welded and retain most of its mechanical strength.\n\n5059 alloy was derived from closely related 5083 aluminum alloy by researchers at Corus Aluminium in 1999.",
+          "ok": true
+        },
+        {
+          "ko": "쏜베리 동물 보호소는 영국 사우스 요크셔주 로더햄에 위치한 중간 규모의 동물 구조 및 복지 자선 단체입니다. 이곳은 동물 보호소이자 쉼터로, 애완 동물과 농장 동물에게 임시 보호와 영구적인 보살핌을 제공하며, 비살처분 정책을 고수합니다. \n\n쏜베리는 1988년 스티브 밤포드에 의해 설립되었습니다. 밤포드는 어린 시절부터 동물을 구조하고 돌보는 것을 취미로 삼았으며, 이를 평생의 일로 삼기 위해 자신의 집을 팔아 보호소가 있는 토지를 매입했습니다. 밤포드는 보호소가 설립되는 동안 5년 동안 전기, 난방, 수도, 위생 시설이 없는 작은 캐러밴에서 살았습니다. 북 앤스턴의 주요 보호소 부지는 처음에는 ,에 걸쳐 있었으며, 견사, 고양이 사육장, 마구간, 창고가 있었습니다. 마구간은 나중에 웍소프의 버크스 농장으로 이전되었지만, 그 시설은 다시 매각되었고, 마구간은 현재 레이븐필드의 실버써프 농장에 있습니다.",
+          "en": "Thornberry Animal Sanctuary is a medium-sized animal rescue and welfare charity, located in Rotherham, South Yorkshire, England. It is an animal sanctuary and shelter, providing temporary shelter and permanent care for pets and farm animals, adhering to a non-destruction policy. \n\nThornberry was founded in 1988 by Steve Bamford, who sold his home to buy the land on which the sanctuary stands; turning his childhood hobby of rescuing and caring for animals into his life's work. Bamford lived in a small caravan for 5 years, without electricity, heating, running water or sanitation whilst the sanctuary was established. The main sanctuary site in North Anston initially took up , containing kennels, cattery, stables, and barn. The stables later moved to Birks Farm in Worksop, but that facility was sold again, and the stables are now at Silverthorpe Farm in Ravenfield.",
+          "ok": true
+        },
+        {
+          "ko": "홀리 트리니티 교회는 웨드모어 돌로 지어졌으며, 프리 스톤 장식과 슬레이트 지붕을 갖추고 있습니다. 교회는 갤러리가 있는 내부, 제단, 사제관, 서쪽 현관으로 구성되어 있습니다. 지붕 중앙에는 한 개의 종이 들어있는 아케이드 큐폴라가 있으며, 십자형으로 장식되어 있습니다. 교회는 팔각형 평면으로 지어졌으며, 각 면에 돌출된 날개가 있습니다. 입구에는 사암으로 된 평지붕 현관이 있습니다.",
+          "en": "Holy Trinity Church is built of rendered Wedmore stone, with freestone dressings and a slate roof. The church is made up of a nave with gallery, chancel, vestry and west porch. The centre of the roof has an arcaded cupola containing one bell and surmounted by a cruciform. The church has an octagonal plan with projecting wings on each side. The entrance has a flat-roofed porch of ashlar stone.",
+          "ok": true
+        },
+        {
+          "ko": "코코리코는 1992년에 결성된 일본의 코미디 듀오(콤비)로, 와 로 구성되어 있습니다. 이들은 인기 있는 장수 버라이어티 쇼인 '다운타운의 가키노츠카이 야 아라헨데!!'의 출연진으로 가장 잘 알려져 있습니다.\n\n멤버는 쇼조 엔도(1971년 7월 13일생)는 츳코미를 맡고 있으며, 나오키 타나카(1971년 4월 26일생)는 보케와 듀오의 리더로, 모든 자료를 작성합니다.",
+          "en": "Cocorico is a Japanese comedy duo (kombi) formed in 1992, consisting of and. They are best known for making up the cast of the popular and long-running variety show, Downtown no Gaki no Tsukai ya Arahende!!.\n\nMembers\n\n Shōzō Endō (born July, 13, 1971), the tsukkomi.\n Naoki Tanaka (born April, 26, 1971), the boke and leader of the duo who writes all of their material.",
+          "ok": true
+        },
+        {
+          "ko": "후안 다미안 로페스 데 아로(1581년 9월 27일 - 1648년 8월 24일)는 하로 가문 출신으로, 가장 거룩한 삼위일체회의 일원이었으며 푸에르토리코 주교(1643-1648)로 재직했습니다. 그는 스페인 관리들에게 보낸 편지와 시를 통해 푸에르토리코의 황폐한 식민지 상태에 대한 환멸을 표현한 것으로 유명합니다.\n\n로페스 데 아로는 1581년 9월 27일 스페인 톨레도에서 태어났으며, 같은 날 세례를 받았습니다. 그는 1599년에 종교 연구에 등록하여 톨레도의 수도원에서 철학을 전공했습니다. 이후 살라망카에서 신학을 전공하며 학업을 계속했습니다.",
+          "en": "Juan Damián López de Haro (September 27, 1581 - August 24, 1648) was a member of the House of Haro, a member of the Order of the Most Holy Trinity and served as Bishop of Puerto Rico (1643-1648). He is known for expressing his disillusionment on Puerto Rico's dilapidated colony status in letters and poems written to Spanish officials.\n\nLópez de Haro was born in Toledo, Spain on September 27, 1581, where he was baptized on the same day. He enrolled in Religious studies in 1599, majoring in philosophy at the convent in Toledo. He later majored in Theology continuing his studies in Salamanca.",
+          "ok": true
+        },
+        {
+          "ko": "카르발류 에 멘돈사는 12명의 형제 중 한 명이었으며, 그의 형제 중 가장 유명한 사람은 세바스티앙 호세 데 카르발류 에 멜루와 프란시스코 자비에르 데 멘돈사 푸르타두였습니다. 세바스티앙 호세 데 카르발류 에 멜루는 호세 1세 국왕의 내무 장관이었으며 나중에 폼발 후작이라는 칭호를 받았습니다. 프란시스코 자비에르 데 멘돈사 푸르타두는 브라질에서 식민지 관리자가 되기 전에 군대에서 복무했습니다.\n\n카르발류 에 멜루, 카르발류 에 멘돈사, 멘돈사 푸르타두 세 형제는 가족 내에서 강한 유대감을 가지고 있었으며, 폼발 후작 궁전의 화합의 홀 천장에 있는 세 사람이 팔짱을 끼고 있는 초상화에서 그 모습을 볼 수 있습니다. 형제 간의 지원은 카르발류 에 멜루가 포르투갈 사회에서 많은 개혁을 수행하고 군주를 설득하여 그의 목표를 지지하도록 돕는 데 중요한 역할을 했습니다. 기록은 또한 카르발류 에 멘돈사가 특히 카르발류 에 멜루가 다른 문제로 교회와 갈등을 빚었을 때 그의 형제와 교회 지도부 간의 중재자 역할을 했음을 보여줍니다.",
+          "en": "Carvalho e Mendonça was one of twelve children. The siblings most prominent in Portugal's history were: Sebastião José de Carvalho e Melo who became King José I's Secretary of State of Internal Affairs and was later given the title by which he is most often referred, Marquis of Pombal; and Francisco Xavier de Mendonça Furtado who served in the armed forces before becoming a colonial administrator in Brazil.\n\nThe three brothers, Carvalho e Melo, Carvalho e Mendonça and Mendonça Furtado, were strongly bonded within the family as shown in a portrait of them arm-in-arm on the ceiling of the Hall of Concord within the Palace of the Marquis of Pombal. Sibling support assisted Carvalho e Melo in carrying out many reforms in Portuguese society and drawing the monarchy into supporting his objectives. Records also show that Carvalho e Mendonça acted as a mediator between his brother and the church hierarchy, especially at times when Carvalho e Melo was in dispute with the church on other issues.",
+          "ok": true
+        },
+        {
+          "ko": "음악 평론가들은 \"굿 투 고, 위드 어 트리뷰트 투 부\"에 대해 긍정적인 평가를 내렸습니다. 올뮤직의 스콧 야노우는 이 앨범을 \"흥미로운 세트\"라고 평가하며, \"다양한 음악 (주로 오리지널)과 뉴턴의 꾸준한 탁월함으로 인해 이 CD는 진보적인 재즈 팬들에게 추천할 만하다\"고 썼습니다.\n\n\"펭귄 재즈 가이드\"의 저자들은 이 앨범에 별 4개를 주면서 \"이 세트는 사이릴이 아트 블레이키를 훌륭하게 모방한 두 개의 연주로 시작되고 끝난다. 이 곡들과 다른 타이틀 곡은 자유와 반응성에 대한 에세이이다\"라고 평가했습니다.\n\n아미리 바라카는 \"제임스 뉴턴의 플루트와 리슬 앳킨슨의 베이스 연주는 그 조합이 예상하는 것처럼 섬세함, 측정된 색채, 친밀함을 제공한다. 확실히 뉴턴의 내성적인 '옵롱'은 이러한 맥락에서 매우 감동적으로 말한다. 깊이 남아있는 감동적인 곡이다. 그러나 그것은 전체 이야기의 절반에 불과하다. 리슬 앳킨슨의 강력한 베이스 보이스가 이를 확실히 증명한다. 존경받는, 널리 찾는, 끊임없이 기깅하는 베이시스트인 앳킨슨은 이 배를 강력하고 역동적으로 움직일 뿐만 아니라 사이릴이 주요 흐름 안에서 앞뒤로 움직일 수 있도록 허용한다. 그러나 그것은 전혀 추진력을 잃지 않는다.\"라고 결론 내렸습니다.",
+          "en": "Music critics have given \"Good to Go, with a Tribute to Bu\" positive reviews. Scott Yanow of AllMusic called the album \"an intriguing set,\" and wrote: \"Due to the variety of the material (mostly originals) and the consistent brilliance of Newton, this CD is recommended to fans of advanced jazz.\"\n\nThe authors of The Penguin Guide to Jazz awarded the album 4 stars, and stated: \"The set is bracketed by two takes of Cyrille's brilliant impersonation of Art Blakey in excelsis. They and the other title-piece are essays in freedom and responsiveness.\"\n\nAmiri Baraka commented: \"With James Newton on flute and Lisle Atkinson on bass, one does get the expected subtlety, measured color, and intimacy that that orchestration would predict. Certainly, Newton's introspective 'Oblong' speaks from this context very movingly. A deep lingering touching piece. But that is not nearly the whole story. Lisle Atkinson's emphatic bass voice makes certain of this. Atkinson, a highly respected, widely sought-after, and constantly gigging yeoman at the other rhythm post, not only powerfully and dynamically paddles this furthership, but allows Cyrille to circle back and forth inside the main flow without the least loss of drive.\" He concluded: \"This album, with its modest construct yet powerful presence, is a gem! It will be a real find for the humble stumbler, but actually a confirmation of just how musically important and gratifying Andrew Cyrille is and has been, for a while now! And his friends, James Newton and Lisle Atkinson, don't leave them out. They contribute with equal persona to this wonderful effort. This is the kind of album you like to pull your friends' coats to, so they'll know you know.\"",
+          "ok": true
+        },
+        {
+          "ko": "힐러리 나이트(1926년 11월 1일 출생)는 미국 작가이자 예술가입니다. 그는 50권이 넘는 책을 삽화했고 9권의 책을 저술했습니다. 그는 케이 톰슨의 엘로이즈(1955) 시리즈를 비롯한 여러 엘로이즈 시리즈의 삽화가이자 공동 창작자로 가장 잘 알려져 있습니다.\n\n나이트는 다양한 고객을 위해 삽화를 그렸으며, 잡지, 아동 패션 광고, 카드, 레코드 앨범뿐만 아니라 지피, 아이린(1973), 하프 어 식스펜스, 할렐루야 베이비!, 노, 노, 나네트(1971) 등 브로드웨이 뮤지컬의 포스터와 음반 커버를 제작했습니다. 그는 삽화 작품에 대한 100개가 넘는 미국 저작권을 가지고 있습니다. 그의 작품의 예는 노, 노, 나네트 기사의 정보 상자에서 볼 수 있습니다.",
+          "en": "Hilary Knight (born November 1, 1926) is an American writer and artist. He is the illustrator of more than 50 books and the author of nine books. He is best known as the illustrator and co-creator of Kay Thompson's Eloise (1955) and others in the Eloise series.\n\nKnight has illustrated for a wide variety of clients, creating artwork for magazines, children's fashion advertisements, greeting cards, record albums as well as posters and music album covers for Broadway musicals, including Gypsy, Irene (1973), Half A Sixpence, Hallelujah Baby!, and No, No, Nanette (1971). He has over 100 U.S. copyrights for his illustration works. An example of his artwork can be seen in the infobox for the article No, No, Nanette.",
+          "ok": true
+        },
+        {
+          "ko": "1914년 8월 5일, 동부, 남부 미들랜드 제1, 남부 미들랜드 제2, 노팅엄셔와 더비셔로 구성된 제1 기병 사단이 버리 세인트 에드먼즈 지역에 편성되었습니다. 1914년 9월 2일, 제2 기병 사단이 처음에는 고링에 편성되었지만 11월에 노퍽으로 이동하여 남부 미들랜드 제1과 제2, 노팅엄셔와 더비셔, 런던 기병 여단이 지휘를 받았습니다. 제1 기병 사단은 동부, 남웨일스, 웨일스 국경, 북부 미들랜드 기병 여단과 자전거 여단의 지휘를 맡았습니다. 또한 원래 제2/2 기병 사단이었던 제3 기병 사단과 제2선 여단을 위한 제4 기병 사단이 있었습니다.\n\n실제 전투에 참전한 유일한 예비군 사단은 제1, 제2, 제3, 제4, 제5 기병 여단으로 구성된 제2 기병 사단이었습니다. 이 사단은 1915년 8월 갈리폴리 전투에 참전했습니다. 9월까지 사상자로 인해 재편성되었고, 생존자들은 제1 복합 기병 여단과 제2 복합 기병 여단을 구성했으며, 이 사단은 스코틀랜드 기병 여단과 하이랜드 기병 여단으로 강화되었습니다. 다음해 12월, 생존자들은 이집트로 철수했고, 이 사단은 1916년 1월 해체되었습니다. 연대들은 이제 시나이와 팔레스타인 전투에 참전하여 제5, 제6, 제7, 제8, 제22 기병 여단을 새롭게 편성했습니다. 이 여단들은 제국 기병 사단, ANZAC 기병 사단에서 복무했고, 추가 재편성 후 제4 기병 사단과 제5 기병 사단에 배속되었습니다. 두 기병 사단의 여단들은 예비군 연대 하나와 영국 인도 육군 기병 연대 두 개로 구성되었습니다. 제7 기병 여단은 또한 마케도니아 전선의 영국 살로니카 군에 독립 부대로 복무했습니다.",
+          "en": "On 5 August 1914, the 1st Mounted Division was formed with the Eastern, 1st South Midland, 2nd South Midland and the Nottinghamshire and Derbyshire, and based in the Bury St Edmunds area. On 2 September 1914 the 2nd Mounted Division was formed, initially at Goring, but moved to Norfolk in November, the 1st and 2nd South Midlands, the Nottinghamshire and Derbyshire, and the London Mounted Brigades came under their command. While the 1st Mounted Division assumed command of the Eastern, South Wales, Welsh Border, North Midland Mounted Brigades and the Cyclist Brigade. There was also a 3rd Mounted Division, originally the 2/2nd Mounted Division, and a 4th Mounted Division for the second line brigades.\n\nThe only yeomanry division to see active service was the 2nd Mounted Division now comprising the 1st, 2nd, 3rd, 4th and 5th Mounted Brigades. The division served in the campaign at Gallipoli from August 1915. By September, casualties forced a re-organisation, the survivors formed the 1st and 2nd Composite Mounted Brigades, and the division was reinforced by the Scottish Horse Mounted Brigade and the Highland Mounted Brigade. In the following December, the survivors were withdrawn to Egypt and the division was disbanded in January 1916. The regiments now served in the Sinai and Palestine Campaign and formed several new brigades. The 5th, 6th, 7th, 8th and 22nd Mounted Brigade. These brigades served in the Imperial Mounted Division, the ANZAC Mounted Division, and after a further re-organisation in the 4th and 5th Cavalry Divisions. The brigades in the two cavalry divisions consisted of one yeomanry and two British Indian Army cavalry regiments. The 7th Mounted Brigade also served, as an independent unit, with the British Salonika Army on the Macedonian front.",
+          "ok": true
+        },
+        {
+          "ko": "MDV는 2001년 8월 1일에 4개 행정 구역과 2개 도시에 통일된 요금제로 도입되었으며 그 이후 여러 번 확장되었습니다. 2004년 8월 1일에 작센주에 있는 마지막 비회원 행정 구역이 포함되었고, 2005년 8월 1일에는 라이프치히에 대한 의존도가 여전히 높은 전 동독 라이프치히 지역인 알텐부르크가 MDV에 완전히 통합되었습니다. 비터펠트 지역의 가입에 대한 협상도 도입 직후 시작되었지만, 현재까지 성공하지 못했습니다. 첫 번째 가입과 달리 작센-안할트주는 이제 요금 손실을 통해 환불을 받기를 원하지 않습니다.",
+          "en": "The association was introduced with a uniform tariff system on 1 August 2001 in four administrative districts and the two cities, and has since been expanded several times: on 1 August 2004, the last unaffiliated administrative districts in Saxony were included, and on 1 August 2005, Altenburg, the area of the former GDR district of Leipzig, which is still strongly oriented towards Leipzig, was completed in the MDV. Negotiations on the accession of the Bitterfeld district were also started shortly after its introduction, but have not been successful to date. In contrast to the first accession, the state of Saxony-Anhalt now no longer wants to reimburse through tariffing losses.",
+          "ok": true
+        }
+      ],
+      "sanity_pass_rate": 1.0,
+      "status": "ok"
+    },
+    {
+      "name": "lemon-mint-parallel-v1.1",
+      "hf_path": "lemon-mint/korean_parallel_sentences_v1.1",
+      "hf_config": null,
+      "license": "unknown",
+      "notes": "Personal HF dataset — may be missing or gated",
+      "num_rows": null,
+      "num_rows_error": "ValueError: BuilderConfig ParquetConfig(name='default', version=0.0.0, data_dir=None, data_files={'train': ['data/train-*']}, description=None, batch_size=None, columns=None, features=None, filters=None, fragment_scan_options=None, on_bad_files='error') doesn't have a 'trust_remote_code' key.",
+      "columns": [
+        "korean",
+        "english"
+      ],
+      "schema": "{korean,english}",
+      "samples": [
+        {
+          "ko": "무두족류는 머리가 없고, 대신 몸통에 직접 붙어 있는 발달된 발이 있습니다.",
+          "en": "Acephala have no head and instead have well-developed feet that are directly attached to the torso.",
+          "ok": true
+        },
+        {
+          "ko": "프랑스와 미국의 관계는 오랜 역사를 가지고 있으며, 긴밀한 협력과 때로는 갈등으로 특징지어집니다. 두 나라는 미국 독립 전쟁에서 동맹국이었으며, 그 이후로도 세계 정치에서 긴밀한 협력 관계를 유지해 왔습니다. 그러나 이라크 전쟁과 같은 문제에 대해서는 의견 차이가 있었습니다.",
+          "en": "France and the United States have a long and complex relationship, marked by both close cooperation and occasional conflict. The two countries were allies during the American Revolutionary War, and they have maintained a close partnership in world affairs ever since. However, they have also had disagreements, such as over the Iraq War.",
+          "ok": true
+        },
+        {
+          "ko": "마을 사람들은 마을 축제를 준비하며 마을 거리를 장식하고 있었습니다.",
+          "en": "The villagers were decorating the village streets in preparation for the village festival.",
+          "ok": true
+        },
+        {
+          "ko": "뱀은 길고 가늘며, 비늘로 덮여 있습니다. 뱀은 독이 있거나 독이 없을 수 있습니다. 독이 있는 뱀은 먹이를 죽이거나 자신을 방어하기 위해 독을 사용합니다.",
+          "en": "Ophidia are elongated, legless, carnivorous reptiles covered in scales. Snakes can be venomous or nonvenomous. Venomous snakes use their venom to kill prey or defend themselves.",
+          "ok": true
+        },
+        {
+          "ko": "새 신발은 검은색 가죽으로 만들어졌고, 매우 편안했다. 신발을 신고 밖을 산책하니 마음이 상쾌했다.",
+          "en": "The new shoes were made of black leather and were very comfortable. I felt refreshed when I put on my shoes and went for a walk outside.",
+          "ok": true
+        },
+        {
+          "ko": "자궁은 배꼽 아래에 위치하며, 크기와 모양은 여성마다 다릅니다. 자궁은 일반적으로 배 모양이며, 길이는 약 7~8cm입니다.",
+          "en": "The uterus is located below the belly button, and its size and shape vary from woman to woman. The uterus is usually pear-shaped and about 7~8 cm in length.",
+          "ok": true
+        },
+        {
+          "ko": "장봉합술은 일반적으로 성공적인 수술입니다. 그러나 모든 수술과 마찬가지로 합병증이 발생할 수 있습니다. 가장 흔한 합병증은 감염, 출혈, 누출입니다.",
+          "en": "Enterorrhaphy is generally a successful procedure. However, as with any surgery, complications can occur. The most common complications include infection, bleeding, and leakage.",
+          "ok": true
+        },
+        {
+          "ko": "머리가 두 개인 새가 하늘을 날아다니며 먹이를 찾고 있었습니다.",
+          "en": "A bicephalous bird was flying in the sky, looking for food.",
+          "ok": true
+        },
+        {
+          "ko": "예를 들어, 불가사리나방의 수컷과 암컷은 서로 다른 모양을 가지고 있습니다. 수컷은 날개가 크고 화려하여 암컷을 유인하는 데 사용합니다. 반면에 암컷은 날개가 작고 둔하며, 이는 포식자로부터 숨는 데 도움이 됩니다.",
+          "en": "For example, male and female anglerfish have different appearances. Males are small and have large, colorful fins that they use to attract females. Females, on the other hand, are large and have dull-colored fins, which help them hide from predators.",
+          "ok": true
+        },
+        {
+          "ko": "고양이는 본질적으로 육식 동물이며, 고기를 먹어야 합니다.",
+          "en": "Cats are intrinsically carnivores and must eat meat.",
+          "ok": true
+        }
+      ],
+      "sanity_pass_rate": 1.0,
+      "status": "ok"
+    }
+  ],
+  "selected": [
+    "opus-100-en-ko",
+    "lemon-mint-wiki-augmented-v1",
+    "lemon-mint-parallel-v1.1"
+  ]
+}
