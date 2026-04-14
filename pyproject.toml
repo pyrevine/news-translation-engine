@@ -17,6 +17,9 @@ dependencies = [
 eval = [
     "sacrebleu>=2.4",
     "unbabel-comet>=2.2",
+    "transformers>=4.45",
+    "accelerate>=1.0",
+    "peft>=0.13",
 ]
 train = [
     "torch>=2.4",
