@@ -1,0 +1,42 @@
+# Stage 1 QLoRA config — ko→en SFT on public parallel corpora.
+# Base model: Qwen2.5-7B-Instruct, 4bit NF4 quantization, LoRA adapter.
+#
+# Runpod RTX 4090 (24GB) reference: batch_size=4, grad_accum=8 → effective 32.
+# T4 (16GB): drop batch_size to 2, grad_accum to 16, consider max_seq_len=768.
+
+model:
+  base: Qwen/Qwen2.5-7B-Instruct
+  quantization: 4bit                # "4bit" | "none"
+
+lora:
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules: [q_proj, k_proj, v_proj, o_proj]
+
+data:
+  train: data/processed/stage1_train.jsonl
+  val: data/processed/stage1_val.jsonl
+  direction: ko2en                  # "ko2en" | "en2ko"
+  max_train_samples: null           # int for smoke tests, null = all
+  max_val_samples: 500              # keep eval cheap during training
+
+train:
+  batch_size: 4
+  grad_accum: 8
+  lr: 2.0e-4
+  epochs: 1
+  max_seq_len: 1024
+  warmup_ratio: 0.03
+  lr_scheduler: cosine
+  logging_steps: 25
+  eval_steps: 500
+  save_steps: 500
+  save_total_limit: 3
+  bf16: true
+  optim: paged_adamw_8bit
+  gradient_checkpointing: true
+
+output_dir: outputs/stage1_qwen2.5_7b_r16
+seed: 42
+report_to: none                     # "wandb" to enable (requires WANDB_API_KEY)
