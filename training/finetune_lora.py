@@ -214,15 +214,22 @@ def main() -> int:
     train_ds = build_formatted_dataset(train_rows, tokenizer, direction)
     val_ds = build_formatted_dataset(val_rows, tokenizer, direction)
 
+    import inspect as _inspect
+
     from trl import SFTTrainer
 
     sft_cfg = build_sft_config(cfg)
+    trainer_params = _inspect.signature(SFTTrainer.__init__).parameters
+    # HF/trl renamed `tokenizer` → `processing_class` around transformers 4.46
+    tokenizer_kwarg = (
+        "processing_class" if "processing_class" in trainer_params else "tokenizer"
+    )
     trainer = SFTTrainer(
         model=model,
-        tokenizer=tokenizer,
         args=sft_cfg,
         train_dataset=train_ds,
         eval_dataset=val_ds,
+        **{tokenizer_kwarg: tokenizer},
     )
 
     trainer.train()
