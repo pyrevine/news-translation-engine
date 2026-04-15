@@ -76,33 +76,6 @@ def build_formatted_dataset(
     return ds.map(to_text, remove_columns=ds.column_names)
 
 
-def resolve_response_template(tokenizer) -> str:
-    """Auto-detect the literal string that begins the assistant turn.
-
-    We use this with DataCollatorForCompletionOnlyLM so loss is computed
-    only on the target translation, not on the prompt.
-    """
-    probe = tokenizer.apply_chat_template(
-        [
-            {"role": "user", "content": "x"},
-            {"role": "assistant", "content": "y"},
-        ],
-        tokenize=False,
-    )
-    candidates = [
-        "<|im_start|>assistant\n",                                     # Qwen / ChatML
-        "<|start_header_id|>assistant<|end_header_id|>\n\n",           # Llama 3
-        "<start_of_turn>model\n",                                      # Gemma
-    ]
-    for cand in candidates:
-        if cand in probe:
-            return cand
-    raise RuntimeError(
-        "Could not auto-detect an assistant-turn marker in this tokenizer's "
-        "chat template. Override resolve_response_template() for your model."
-    )
-
-
 def build_model_and_tokenizer(cfg: dict[str, Any]):
     import torch
     from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
@@ -159,10 +132,17 @@ def build_model_and_tokenizer(cfg: dict[str, Any]):
 
 
 def build_sft_config(cfg: dict[str, Any]):
+    """Build SFTConfig, preferring modern trl's `assistant_only_loss` option.
+
+    trl >=0.12 masks prompt-token loss via SFTConfig(assistant_only_loss=True),
+    using the tokenizer's chat template to detect the assistant turn. Older
+    trl (<0.12) required DataCollatorForCompletionOnlyLM. We target the modern
+    path and fall back to full-sequence loss if the option is unavailable.
+    """
     from trl import SFTConfig
 
     tr = cfg["train"]
-    return SFTConfig(
+    kwargs: dict[str, Any] = dict(
         output_dir=cfg["output_dir"],
         per_device_train_batch_size=tr["batch_size"],
         per_device_eval_batch_size=tr["batch_size"],
@@ -185,6 +165,16 @@ def build_sft_config(cfg: dict[str, Any]):
         report_to=cfg.get("report_to", "none") or "none",
         seed=cfg.get("seed", 42),
     )
+    try:
+        return SFTConfig(**kwargs, assistant_only_loss=True)
+    except TypeError:
+        print(
+            "WARN: trl.SFTConfig lacks `assistant_only_loss` — computing loss on "
+            "the full sequence (prompt + response). Upgrade trl to >=0.12 for "
+            "prompt-masked loss.",
+            file=sys.stderr,
+        )
+        return SFTConfig(**kwargs)
 
 
 def main() -> int:
@@ -209,18 +199,6 @@ def main() -> int:
     train_ds = build_formatted_dataset(train_rows, tokenizer, direction)
     val_ds = build_formatted_dataset(val_rows, tokenizer, direction)
 
-    response_template = resolve_response_template(tokenizer)
-    print(f"Response template: {response_template!r}", file=sys.stderr)
-
-    try:
-        from trl import DataCollatorForCompletionOnlyLM
-    except ImportError:
-        from trl.trainer import DataCollatorForCompletionOnlyLM
-
-    collator = DataCollatorForCompletionOnlyLM(
-        response_template=response_template, tokenizer=tokenizer
-    )
-
     from trl import SFTTrainer
 
     sft_cfg = build_sft_config(cfg)
@@ -230,7 +208,6 @@ def main() -> int:
         args=sft_cfg,
         train_dataset=train_ds,
         eval_dataset=val_ds,
-        data_collator=collator,
     )
 
     trainer.train()
