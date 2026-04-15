@@ -132,24 +132,26 @@ def build_model_and_tokenizer(cfg: dict[str, Any]):
 
 
 def build_sft_config(cfg: dict[str, Any]):
-    """Build SFTConfig, preferring modern trl's `assistant_only_loss` option.
+    """Build an SFTConfig tolerant of trl's rapid API churn.
 
-    trl >=0.12 masks prompt-token loss via SFTConfig(assistant_only_loss=True),
-    using the tokenizer's chat template to detect the assistant turn. Older
-    trl (<0.12) required DataCollatorForCompletionOnlyLM. We target the modern
-    path and fall back to full-sequence loss if the option is unavailable.
+    We assemble the union of kwargs we'd like to pass, resolve a couple of
+    known renames against the installed SFTConfig signature (e.g. the recent
+    `max_seq_length` → `max_length` rename), then drop any remaining kwargs
+    the installed version doesn't accept. That way new renames degrade to
+    a warning instead of a crash.
     """
+    import inspect
+
     from trl import SFTConfig
 
     tr = cfg["train"]
-    kwargs: dict[str, Any] = dict(
+    desired: dict[str, Any] = dict(
         output_dir=cfg["output_dir"],
         per_device_train_batch_size=tr["batch_size"],
         per_device_eval_batch_size=tr["batch_size"],
         gradient_accumulation_steps=tr["grad_accum"],
         learning_rate=float(tr["lr"]),
         num_train_epochs=tr["epochs"],
-        max_seq_length=tr["max_seq_len"],
         warmup_ratio=tr.get("warmup_ratio", 0.03),
         lr_scheduler_type=tr.get("lr_scheduler", "cosine"),
         logging_steps=tr.get("logging_steps", 25),
@@ -164,17 +166,30 @@ def build_sft_config(cfg: dict[str, Any]):
         packing=False,
         report_to=cfg.get("report_to", "none") or "none",
         seed=cfg.get("seed", 42),
+        assistant_only_loss=True,
     )
-    try:
-        return SFTConfig(**kwargs, assistant_only_loss=True)
-    except TypeError:
+
+    params = inspect.signature(SFTConfig.__init__).parameters
+    # trl renamed max_seq_length → max_length somewhere around 0.14
+    max_len = tr["max_seq_len"]
+    if "max_length" in params:
+        desired["max_length"] = max_len
+    elif "max_seq_length" in params:
+        desired["max_seq_length"] = max_len
+
+    accepted: dict[str, Any] = {}
+    dropped: list[str] = []
+    for k, v in desired.items():
+        if k in params:
+            accepted[k] = v
+        else:
+            dropped.append(k)
+    if dropped:
         print(
-            "WARN: trl.SFTConfig lacks `assistant_only_loss` — computing loss on "
-            "the full sequence (prompt + response). Upgrade trl to >=0.12 for "
-            "prompt-masked loss.",
+            f"WARN: dropping SFTConfig kwargs not in installed trl: {dropped}",
             file=sys.stderr,
         )
-        return SFTConfig(**kwargs)
+    return SFTConfig(**accepted)
 
 
 def main() -> int:
