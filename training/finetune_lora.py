@@ -48,15 +48,19 @@ def load_config(path: str | Path) -> dict[str, Any]:
         return yaml.safe_load(f)
 
 
-def build_formatted_dataset(
-    rows: list[dict[str, Any]], tokenizer, direction: str
-):
-    """Turn {ko, en, ...} rows into {text} rows with full chat-formatted string."""
+def build_formatted_dataset(rows: list[dict[str, Any]], direction: str):
+    """Turn {ko, en, ...} rows into conversational {messages: [...]} rows.
+
+    Modern trl (>=0.14-ish) with `assistant_only_loss=True` expects a
+    conversational dataset — i.e. each row has a `messages` list of
+    role/content dicts. SFTTrainer handles chat-template application and
+    label masking internally using the tokenizer passed via processing_class.
+    """
     from datasets import Dataset
 
     from evaluation.prompts import build_messages
 
-    def to_text(row: dict[str, Any]) -> dict[str, str]:
+    def to_messages(row: dict[str, Any]) -> dict[str, Any]:
         if direction == "ko2en":
             src, tgt = row["ko"], row["en"]
         elif direction == "en2ko":
@@ -66,14 +70,10 @@ def build_formatted_dataset(
         messages = build_messages(src, direction) + [
             {"role": "assistant", "content": tgt}
         ]
-        return {
-            "text": tokenizer.apply_chat_template(
-                messages, tokenize=False, add_generation_prompt=False
-            )
-        }
+        return {"messages": messages}
 
     ds = Dataset.from_list(rows)
-    return ds.map(to_text, remove_columns=ds.column_names)
+    return ds.map(to_messages, remove_columns=ds.column_names)
 
 
 def build_model_and_tokenizer(cfg: dict[str, Any]):
@@ -162,7 +162,6 @@ def build_sft_config(cfg: dict[str, Any]):
         bf16=tr.get("bf16", True),
         optim=tr.get("optim", "paged_adamw_8bit"),
         gradient_checkpointing=tr.get("gradient_checkpointing", True),
-        dataset_text_field="text",
         packing=False,
         report_to=cfg.get("report_to", "none") or "none",
         seed=cfg.get("seed", 42),
@@ -211,8 +210,8 @@ def main() -> int:
     val_rows = load_jsonl(data_cfg["val"], limit=data_cfg.get("max_val_samples"))
     print(f"Loaded train={len(train_rows):,} val={len(val_rows):,}", file=sys.stderr)
 
-    train_ds = build_formatted_dataset(train_rows, tokenizer, direction)
-    val_ds = build_formatted_dataset(val_rows, tokenizer, direction)
+    train_ds = build_formatted_dataset(train_rows, direction)
+    val_ds = build_formatted_dataset(val_rows, direction)
 
     import inspect as _inspect
 
