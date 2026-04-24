@@ -13,6 +13,7 @@
 # Env vars (export before running, or put in /workspace/.env):
 #   HF_TOKEN           — for gated models (Llama etc.)
 #   WANDB_API_KEY      — optional, for experiment tracking
+#   FLASH_ATTN=1       — optional, install flash-attn after sync (adds 5–15 min build)
 
 set -euo pipefail
 
@@ -64,6 +65,12 @@ if [[ "${GROUP}" == "all" ]]; then
   uv sync --extra eval --extra train --extra data --extra serve
 else
   uv sync --extra "${GROUP}"
+fi
+
+# 4b. Optional flash-attn install (requires torch already in venv — so run after sync)
+if [[ "${FLASH_ATTN:-0}" == "1" ]]; then
+  echo ">>> Installing flash-attn (this compiles a wheel, ~5-15 min)..."
+  uv pip install flash-attn --no-build-isolation
 fi
 
 # 5. GPU sanity check

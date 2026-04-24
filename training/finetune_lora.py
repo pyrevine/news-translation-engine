@@ -105,11 +105,13 @@ def build_model_and_tokenizer(cfg: dict[str, Any]):
         tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "right"
 
+    attn_impl = cfg["model"].get("attn_implementation", "sdpa")
     model = AutoModelForCausalLM.from_pretrained(
         model_name,
         quantization_config=quant_cfg,
         torch_dtype=torch.bfloat16,
         device_map="auto",
+        attn_implementation=attn_impl,
     )
 
     use_gc = cfg["train"].get("gradient_checkpointing", True)

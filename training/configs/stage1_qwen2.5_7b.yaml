@@ -7,6 +7,7 @@
 model:
   base: Qwen/Qwen2.5-7B-Instruct
   quantization: 4bit                # "4bit" | "none"
+  attn_implementation: sdpa         # "sdpa" (default, safe) | "flash_attention_2" (needs `FLASH_ATTN=1 bash scripts/runpod_setup.sh` or manual install) | "eager"
 
 lora:
   r: 16
@@ -26,7 +27,7 @@ train:
   grad_accum: 8
   lr: 2.0e-4
   epochs: 1
-  max_seq_len: 1024
+  max_seq_len: 512
   warmup_ratio: 0.03
   lr_scheduler: cosine
   logging_steps: 25
@@ -35,8 +36,8 @@ train:
   save_total_limit: 3
   bf16: true
   optim: paged_adamw_8bit
-  gradient_checkpointing: true
+  gradient_checkpointing: false
 
-output_dir: outputs/stage1_qwen2.5_7b_r16
+output_dir: /workspace/outputs/stage1_qwen2.5_7b_r16   # Runpod persistent volume; change if running elsewhere
 seed: 42
 report_to: none                     # "wandb" to enable (requires WANDB_API_KEY)
