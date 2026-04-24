@@ -1,0 +1,53 @@
+# Smoke test config — verifies the training loop runs end-to-end before
+# committing to a multi-hour real run. Keeps the full memory config
+# (batch_size, grad_accum, max_seq_len, quantization, attn_impl) so an OOM
+# or VRAM surprise surfaces here too; only the dataset size and cadence
+# are shrunk.
+#
+# Expected runtime: ~5-10 min on RTX 4090. What to verify:
+#   - trainer.train() completes without crashing
+#   - training loss decreases across logged steps
+#   - at least one eval + one checkpoint save fires
+#   - no OOM at the configured batch/seq settings
+#
+# Run:
+#   uv run python -m training.finetune_lora \
+#       --config training/configs/stage1_qwen2.5_7b.smoke.yaml
+
+model:
+  base: Qwen/Qwen2.5-7B-Instruct
+  quantization: 4bit
+  attn_implementation: sdpa
+
+lora:
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules: [q_proj, k_proj, v_proj, o_proj]
+
+data:
+  train: data/processed/stage1_train.jsonl
+  val: data/processed/stage1_val.jsonl
+  direction: ko2en
+  max_train_samples: 2000           # ~62 optimizer steps at effective batch 32
+  max_val_samples: 100
+
+train:
+  batch_size: 4
+  grad_accum: 8
+  lr: 2.0e-4
+  epochs: 1
+  max_seq_len: 512
+  warmup_ratio: 0.03
+  lr_scheduler: cosine
+  logging_steps: 5                  # see loss curve in ~12 log lines
+  eval_steps: 20                    # ~3 evals over the run
+  save_steps: 25                    # ~2 checkpoints
+  save_total_limit: 1
+  bf16: true
+  optim: paged_adamw_8bit
+  gradient_checkpointing: false
+
+output_dir: /workspace/outputs/stage1_qwen2.5_7b_smoke
+seed: 42
+report_to: none
