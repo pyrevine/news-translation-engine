@@ -38,14 +38,20 @@ uv --version
 # 2. Redirect HF cache to persistent volume if /workspace exists
 if [[ -d /workspace ]]; then
   export HF_HOME="/workspace/.cache/huggingface"
+  # Disable the xet downloader — on Runpod it stages reconstruction chunks
+  # under the small container overlay and hits EDQUOT (os error 122) mid-download.
+  # Regular resolve+download goes straight into HF_HOME on /workspace.
+  export HF_HUB_DISABLE_XET=1
   export UV_CACHE_DIR="/workspace/.cache/uv"
   mkdir -p "${HF_HOME}" "${UV_CACHE_DIR}"
   echo ">>> HF_HOME=${HF_HOME}"
+  echo ">>> HF_HUB_DISABLE_XET=1"
   echo ">>> UV_CACHE_DIR=${UV_CACHE_DIR}"
 
   # Persist across shell sessions on the pod
   {
     echo "export HF_HOME=${HF_HOME}"
+    echo "export HF_HUB_DISABLE_XET=1"
     echo "export UV_CACHE_DIR=${UV_CACHE_DIR}"
     echo 'export PATH="$HOME/.local/bin:$PATH"'
   } >>"$HOME/.bashrc"
