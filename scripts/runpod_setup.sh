@@ -42,16 +42,22 @@ if [[ -d /workspace ]]; then
   # under the small container overlay and hits EDQUOT (os error 122) mid-download.
   # Regular resolve+download goes straight into HF_HOME on /workspace.
   export HF_HUB_DISABLE_XET=1
+  # Disable hf_transfer (multi-threaded accelerator). It masks errors with an
+  # opaque "An error occurred while downloading using hf_transfer" and gives
+  # no retry granularity. Single-threaded is slower but actually finishes.
+  export HF_HUB_ENABLE_HF_TRANSFER=0
   export UV_CACHE_DIR="/workspace/.cache/uv"
   mkdir -p "${HF_HOME}" "${UV_CACHE_DIR}"
   echo ">>> HF_HOME=${HF_HOME}"
   echo ">>> HF_HUB_DISABLE_XET=1"
+  echo ">>> HF_HUB_ENABLE_HF_TRANSFER=0"
   echo ">>> UV_CACHE_DIR=${UV_CACHE_DIR}"
 
   # Persist across shell sessions on the pod
   {
     echo "export HF_HOME=${HF_HOME}"
     echo "export HF_HUB_DISABLE_XET=1"
+    echo "export HF_HUB_ENABLE_HF_TRANSFER=0"
     echo "export UV_CACHE_DIR=${UV_CACHE_DIR}"
     echo 'export PATH="$HOME/.local/bin:$PATH"'
   } >>"$HOME/.bashrc"
